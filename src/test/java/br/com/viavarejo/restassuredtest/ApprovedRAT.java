@@ -41,7 +41,7 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
         
-		util.checkDateLimit(urlToTest, null, null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 3);
 	}
@@ -71,7 +71,7 @@ class ApprovedRAT {
 		.body("orderList.customerName", hasItem(util.CUSTOMER_NAME_COMPARE));
 		
         
-		util.checkDateLimit(urlToTest, null, null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 1);
 	}
@@ -101,7 +101,7 @@ class ApprovedRAT {
 		.body("orderList.documentNumber", hasItem(util.DOCUMENT_NR));
 		
         
-		util.checkDateLimit(urlToTest, null, null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 1);
 	}
@@ -130,8 +130,8 @@ class ApprovedRAT {
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 2);
 	}
@@ -160,8 +160,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.customerName", hasItem(util.CUSTOMER_NAME_COMPARE));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 1);
 	}
@@ -190,8 +190,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.documentNumber", hasItem(util.DOCUMENT_NR));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null);
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), null, false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 1);
 	}
@@ -219,8 +219,8 @@ class ApprovedRAT {
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"), false, "approvedDate");
         util.checkStatus(urlToTest, new String[] {"PAY"});
         util.checkTotalElements(urlToTest, 2);
 	}
@@ -250,8 +250,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.customerName", hasItem(utilTemp.CUSTOMER_NAME_COMPARE));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"), false, "approvedDate");
         util.checkStatus(urlToTest, new String[] {"PAY"});
         util.checkTotalElements(urlToTest, 1);
 	}
@@ -280,8 +280,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.documentNumber", hasItem(utilTemp.DOCUMENT_NR));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:50:00"), false, "approvedDate");
         util.checkStatus(urlToTest, new String[] {"PAY"});
         util.checkTotalElements(urlToTest, 1);
 	}
@@ -308,8 +308,8 @@ class ApprovedRAT {
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), false, "approvedDate");
 		util.checkStatus(urlToTest, new String[] {"PAY"});
 		util.checkTotalElements(urlToTest, 1);
 	}
@@ -339,8 +339,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.customerName", hasItem(utilTemp.CUSTOMER_NAME_COMPARE));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), false, "approvedDate");
         util.checkStatus(urlToTest, new String[] {"PAY"});
         util.checkTotalElements(urlToTest, 1);
 	}
@@ -370,8 +370,8 @@ class ApprovedRAT {
 		.body("totalOrdersRefusedPayment", equalTo(0))
 		.body("orderList.documentNumber", hasItem(utilTemp.DOCUMENT_NR));
 		
-		util.checkDateLimit(urlToTest, null, null);
-		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"));
+		util.checkDateLimit(urlToTest, null, null, false, "approvedDate");
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-29T10:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-29T13:00:00"), false, "approvedDate");
         util.checkStatus(urlToTest, new String[] {"PAY"});
         util.checkTotalElements(urlToTest, 1);
 	}

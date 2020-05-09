@@ -61,6 +61,61 @@ public class RestAssuredTestUtil {
 		}
 	}
 	
+	public void checkDateLimit(String urlToTest, 
+			Date dataInicialConsultaLimite, Date dataFinalConsultaLimite, boolean isTracking, String fieldToCompare) throws ParseException
+	{
+		Response resp = get(urlToTest)
+				.then()
+				.extract()
+				.response();
+		
+		List<HashMap<String, Object>> list = resp.getBody().jsonPath().getList("orderList");
+		
+		LocalDateTime dataConsulta = LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).minusMonths(6);
+        
+		if(dataInicialConsultaLimite == null)
+			dataInicialConsultaLimite = Date.from(dataConsulta.toInstant(ZoneOffset.UTC));
+        
+		for (HashMap<String, Object> jsonObject : list) {
+		    
+			if(!isTracking)
+			{
+				String fieldDateElement = (String)jsonObject.get(fieldToCompare);
+			    Date currentDate = dateFormat.parse(fieldDateElement);
+			    if(currentDate.before(dataInicialConsultaLimite)) 
+			    	assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+			    
+			    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite)) 
+			    	assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+			}
+			else
+			{
+				List<HashMap<String, Object>> trackingList = (List<HashMap<String, Object>>)jsonObject.get("trackings");
+				
+				for (HashMap<String, Object> innerJsonObject : trackingList) {
+					
+					String fieldControlPointElement = (String)innerJsonObject.get("status");
+					
+					if(!fieldControlPointElement.equalsIgnoreCase(fieldToCompare))
+					{
+						continue;
+					}
+				    
+					String fieldDateElement = (String)innerJsonObject.get("occurenceDt");
+					Date currentDate = dateFormat.parse(fieldDateElement);
+				    if(currentDate.before(dataInicialConsultaLimite)) 
+				    	assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+				    
+				    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite)) 
+				    	assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+				    
+				    break;
+					
+				}
+			}
+		}
+	}
+	
 	//para verificar se todos são de um determinado lista de status
 	public void checkStatus(String urlToTest, String[] status) throws ParseException
 	{
