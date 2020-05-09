@@ -12,11 +12,11 @@ import java.text.ParseException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Disabled
 class ApiOrderGetV2RAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil(); 
 	
-	@Disabled
 	@Test
 	void test_pedido_antigo_by_id() {
 		
@@ -43,7 +43,6 @@ class ApiOrderGetV2RAT {
 		util.checkTotalElements(urlToTest, 1);
 	}
 	
-	@Disabled
 	@Test
 	void test_pedido_antigo_by_order_master_id() {
 		
@@ -70,7 +69,6 @@ class ApiOrderGetV2RAT {
 		util.checkTotalElements(urlToTest, 1);
 	}
 	
-	@Disabled
 	@Test
 	void test_pedido_antigo_by_no_one() throws ParseException {
 		

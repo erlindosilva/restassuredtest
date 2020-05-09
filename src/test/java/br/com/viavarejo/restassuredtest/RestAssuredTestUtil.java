@@ -17,9 +17,22 @@ import io.restassured.response.Response;
 public class RestAssuredTestUtil {
 
 	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-	public final static String CUSTOMER_NAME_COMPARE = "Cinira Ribeiro";
-	public final static String CUSTOMER_NAME_FILTER = "Cinira";
-	public final static String DOCUMENT_NR = "15139645858";
+	public String CUSTOMER_NAME_COMPARE = "Cinira Ribeiro";
+	public String CUSTOMER_NAME_FILTER = "Cinira";
+	public String DOCUMENT_NR = "15139645858";
+	
+	public RestAssuredTestUtil()
+	{
+		
+	}
+	
+	public RestAssuredTestUtil(String customerNameCompare,
+			String customerNameFilter, String documentNR)
+	{
+		this.CUSTOMER_NAME_COMPARE = customerNameCompare;
+		this.CUSTOMER_NAME_FILTER = customerNameFilter;
+		this.DOCUMENT_NR = documentNR;
+	}
 	
 	//verifica se dado a lista de elementos, há algum item que está abaixo da data limite
 	public void checkDateLimit(String urlToTest, 
