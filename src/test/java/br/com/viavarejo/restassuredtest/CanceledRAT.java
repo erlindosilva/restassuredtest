@@ -17,6 +17,7 @@ class CanceledRAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil("CARLOS TADEU CORREIA LARA", "Carlos", "45181926991"); 
 	
+	//TODO colocar um método para ver se recuperar pedidos abaixo do intervalo máximo de datas 
 	
 	@Test
 	void test_pedido_by_canceled() throws ParseException {

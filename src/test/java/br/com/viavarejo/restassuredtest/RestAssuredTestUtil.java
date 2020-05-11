@@ -82,6 +82,15 @@ public class RestAssuredTestUtil {
 	public void checkDateLimit(String urlToTest, 
 			Date dataInicialConsultaLimite, Date dataFinalConsultaLimite, boolean isTracking, String fieldToCompare) throws ParseException
 	{
+		checkDateLimit(urlToTest, 
+				dataInicialConsultaLimite, dataFinalConsultaLimite, isTracking, fieldToCompare,
+				false);
+	}
+	
+	public void checkDateLimit(String urlToTest, 
+			Date dataInicialConsultaLimite, Date dataFinalConsultaLimite, boolean isTracking, String fieldToCompare,
+			boolean expectedErrorOnThisChecking) throws ParseException
+	{
 		Response resp = get(urlToTest)
 				.then()
 				.extract()
@@ -100,11 +109,21 @@ public class RestAssuredTestUtil {
 			{
 				String fieldDateElement = (String)jsonObject.get(fieldToCompare);
 			    Date currentDate = dateFormat.parse(fieldDateElement);
-			    if(currentDate.before(dataInicialConsultaLimite)) 
-			    	assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+			    if(currentDate.before(dataInicialConsultaLimite))
+			    {
+			    	if(!expectedErrorOnThisChecking)
+			    		assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+			    	else
+			    		assertNotEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+			    }
 			    
-			    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite)) 
-			    	assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+			    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite))
+			    {
+			    	if(!expectedErrorOnThisChecking)
+			    		assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+			    	else
+			    		assertNotEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+			    }
 			}
 			else
 			{
@@ -121,11 +140,22 @@ public class RestAssuredTestUtil {
 				    
 					String fieldDateElement = (String)innerJsonObject.get("occurenceDt");
 					Date currentDate = dateFormat.parse(fieldDateElement);
-				    if(currentDate.before(dataInicialConsultaLimite)) 
-				    	assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+					
+				    if(currentDate.before(dataInicialConsultaLimite))
+				    {
+				    	if(!expectedErrorOnThisChecking)
+				    		assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+				    	else
+				    		assertNotEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+				    }
 				    
-				    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite)) 
-				    	assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+				    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite))
+				    {
+				    	if(!expectedErrorOnThisChecking)
+				    		assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+				    	else
+				    		assertNotEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+				    }
 				    
 				    break;
 					
