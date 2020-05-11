@@ -17,7 +17,6 @@ class PendingNewRAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil(); 
 	
-	
 	@Test
 	void test_pedido_by_new_pending() throws ParseException {
 		
@@ -27,7 +26,7 @@ class PendingNewRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(14))
+		.body("totalRows", equalTo(13))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
 		.body("totalOrdersSent", equalTo(0))
@@ -36,17 +35,17 @@ class PendingNewRAT {
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(0))
 		.body("totalOrdersSentPartially", equalTo(0))
-		.body("totalOrdersPending", equalTo(14))
+		.body("totalOrdersPending", equalTo(13))
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
         
 		util.checkDateLimit(urlToTest, null, null);
 		util.checkStatus(urlToTest, new String[] {"PEN"});
-		util.checkTotalElements(urlToTest, 14);
+		util.checkTotalElements(urlToTest, 13);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_customer_name() throws ParseException {
 		
@@ -76,7 +75,7 @@ class PendingNewRAT {
 		util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_doc_nr() throws ParseException {
 		
@@ -107,7 +106,7 @@ class PendingNewRAT {
 	}
 	
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_start_date() throws ParseException {
 		
@@ -117,7 +116,7 @@ class PendingNewRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(7))
+		.body("totalRows", equalTo(6))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
 		.body("totalOrdersSent", equalTo(0))
@@ -126,16 +125,15 @@ class PendingNewRAT {
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(0))
 		.body("totalOrdersSentPartially", equalTo(0))
-		.body("totalOrdersPending", equalTo(7))
+		.body("totalOrdersPending", equalTo(6))
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
 		util.checkDateLimit(urlToTest, null, null);
 		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-24T22:00:00"), null);
 		util.checkStatus(urlToTest, new String[] {"PEN"});
-		util.checkTotalElements(urlToTest, 7);
+		util.checkTotalElements(urlToTest, 6);
 	}
-	
 	
 	@Test
 	void test_pedido_by_new_pending_and_start_date_and_customer_name() throws ParseException {
@@ -166,7 +164,7 @@ class PendingNewRAT {
 		util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_start_date_and_doc_nr() throws ParseException {
 		
@@ -196,7 +194,7 @@ class PendingNewRAT {
 		util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_end_date() throws ParseException {
 		
@@ -225,7 +223,7 @@ class PendingNewRAT {
         util.checkTotalElements(urlToTest, 10);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_end_date_and_customer_name() throws ParseException {
 		
@@ -255,7 +253,7 @@ class PendingNewRAT {
         util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_end_date_and_doc_nr() throws ParseException {
 		
@@ -285,7 +283,7 @@ class PendingNewRAT {
         util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
+
 	@Test
 	void test_pedido_by_new_pending_and_start_date_and_end_date() throws ParseException {
 		
@@ -313,7 +311,6 @@ class PendingNewRAT {
 		util.checkStatus(urlToTest, new String[] {"PEN"});
 		util.checkTotalElements(urlToTest, 3);
 	}
-	
 	
 	@Test
 	void test_pedido_by_new_pending_and_start_date_and_end_date_and_customer_name() throws ParseException {
@@ -344,7 +341,6 @@ class PendingNewRAT {
         util.checkTotalElements(urlToTest, 1);
 	}
 	
-	
 	@Test
 	void test_pedido_by_new_pending_and_start_date_and_end_date_and_doc_nr() throws ParseException {
 		
@@ -372,6 +368,91 @@ class PendingNewRAT {
 		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-04-24T04:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-28T22:00:00"));
         util.checkStatus(urlToTest, new String[] {"PEN"});
         util.checkTotalElements(urlToTest, 1);
+	}
+	
+	
+	//pedidos antigos
+	@Test
+	void test_pedido_by_new_pending_and_old_start_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=NEW,PENDING&startRow=0&pageRows=350&startPurchaseDate=2019-04-29T02:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(14))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(0))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(14))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+		util.checkDateLimit(urlToTest, null, null, true);
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2019-04-29T02:00:00"), null);
+		util.checkStatus(urlToTest, new String[] {"PEN"});
+		util.checkTotalElements(urlToTest, 14);
+	}
+	
+
+	@Test
+	void test_pedido_by_new_pending_and_old_end_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=NEW,PENDING&startRow=0&pageRows=350&finishPurchaseDate=2019-04-29T16:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(0))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(0))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(0))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+        util.checkTotalElements(urlToTest, 0);
+	}
+	
+	
+	@Test
+	void test_pedido_by_new_pending_and_old_start_date_and_old_end_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=NEW,PENDING&startRow=0&pageRows=350&startPurchaseDate=2019-04-29T02:00:00Z&finishPurchaseDate=2019-04-29T16:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(1))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(0))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(1))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+		util.checkDateLimit(urlToTest, null, null, true);
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2019-04-29T02:00:00"), RestAssuredTestUtil.dateFormat.parse("2019-04-29T16:00:00"));
+		util.checkStatus(urlToTest, new String[] {"PEN"});
+		util.checkTotalElements(urlToTest, 1);
 	}
 
 }

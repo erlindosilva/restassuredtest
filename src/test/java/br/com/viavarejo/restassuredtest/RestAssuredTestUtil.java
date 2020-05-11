@@ -2,6 +2,7 @@ package br.com.viavarejo.restassuredtest;
 
 import static io.restassured.RestAssured.get;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,13 @@ public class RestAssuredTestUtil {
 	public void checkDateLimit(String urlToTest, 
 			Date dataInicialConsultaLimite, Date dataFinalConsultaLimite) throws ParseException
 	{
+		this.checkDateLimit(urlToTest, dataInicialConsultaLimite, dataFinalConsultaLimite, false);
+	}
+	
+	//verifica se dado a lista de elementos, há algum item que está abaixo da data limite
+	public void checkDateLimit(String urlToTest, 
+			Date dataInicialConsultaLimite, Date dataFinalConsultaLimite, boolean expectedErrorOnThisChecking) throws ParseException
+	{
 		Response resp = get(urlToTest)
 				.then()
 				.extract()
@@ -53,11 +61,21 @@ public class RestAssuredTestUtil {
 		for (HashMap<String, Object> jsonObject : list) {
 		    String purchaseDateElement = (String)jsonObject.get("purchaseDate");
 		    Date currentDate = dateFormat.parse(purchaseDateElement);
-		    if(currentDate.before(dataInicialConsultaLimite)) 
-		    	assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+		    if(currentDate.before(dataInicialConsultaLimite))
+		    {
+		    	if(!expectedErrorOnThisChecking)
+		    		assertEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+		    	else
+		    		assertNotEquals("dataInicialConsultaLimite", "dataInicialConsultaLimite1");
+		    }
 		    
-		    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite)) 
-		    	assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+		    if(dataFinalConsultaLimite != null && currentDate.after(dataFinalConsultaLimite))
+		    {
+		    	if(!expectedErrorOnThisChecking)
+		    		assertEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+		    	else
+		    		assertNotEquals("dataFinalConsultaLimite", "dataFinalConsultaLimite1");
+		    }
 		}
 	}
 	
@@ -156,7 +174,11 @@ public class RestAssuredTestUtil {
 		
 		List<HashMap<String, Object>> list = resp.getBody().jsonPath().getList("orderList");
 		
-		assertEquals(list.size(), totalElementsExpected);
+		//só checa se alguma das quantidades for diferente de 0
+		if((list != null && list.size() != 0) || totalElementsExpected != 0)
+		{
+			assertEquals(list.size(), totalElementsExpected);
+		}
 	}
 	
 }
