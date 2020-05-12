@@ -17,7 +17,6 @@ class CanceledRAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil("CARLOS TADEU CORREIA LARA", "Carlos", "45181926991"); 
 	
-	//TODO colocar um método para ver se recuperar pedidos abaixo do intervalo máximo de datas 
 	
 	@Test
 	void test_pedido_by_canceled() throws ParseException {
@@ -28,12 +27,12 @@ class CanceledRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(46))
+		.body("totalRows", equalTo(45))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
 		.body("totalOrdersSent", equalTo(0))
 		.body("totalOrdersDelivered", equalTo(0))
-		.body("totalOrdersCanceled", equalTo(46))
+		.body("totalOrdersCanceled", equalTo(45))
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(0))
 		.body("totalOrdersSentPartially", equalTo(0))
@@ -44,7 +43,7 @@ class CanceledRAT {
         
 		util.checkDateLimit(urlToTest, null, null, true, "CAN");
 		util.checkStatus(urlToTest, new String[] {"CAN"});
-		util.checkTotalElements(urlToTest, 46);
+		util.checkTotalElements(urlToTest, 45);
 	}
 	
 	
@@ -57,12 +56,12 @@ class CanceledRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(2))
+		.body("totalRows", equalTo(1))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
 		.body("totalOrdersSent", equalTo(0))
 		.body("totalOrdersDelivered", equalTo(0))
-		.body("totalOrdersCanceled", equalTo(2))
+		.body("totalOrdersCanceled", equalTo(1))
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(0))
 		.body("totalOrdersSentPartially", equalTo(0))
@@ -74,7 +73,7 @@ class CanceledRAT {
         
 		util.checkDateLimit(urlToTest, null, null, true, "CAN");
 		util.checkStatus(urlToTest, new String[] {"CAN"});
-		util.checkTotalElements(urlToTest, 2);
+		util.checkTotalElements(urlToTest, 1);
 	}
 	
 	
@@ -208,12 +207,12 @@ class CanceledRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(21))
+		.body("totalRows", equalTo(20))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
 		.body("totalOrdersSent", equalTo(0))
 		.body("totalOrdersDelivered", equalTo(0))
-		.body("totalOrdersCanceled", equalTo(21))
+		.body("totalOrdersCanceled", equalTo(20))
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(0))
 		.body("totalOrdersSentPartially", equalTo(0))
@@ -224,7 +223,7 @@ class CanceledRAT {
 		util.checkDateLimit(urlToTest, null, null, true, "CAN");
 		//util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-02-25T11:00:00"), true, "CAN");
         util.checkStatus(urlToTest, new String[] {"CAN"});
-        util.checkTotalElements(urlToTest, 21);
+        util.checkTotalElements(urlToTest, 20);
 	}
 	
 	
@@ -378,6 +377,90 @@ class CanceledRAT {
 		//util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2020-02-25T11:00:00"), RestAssuredTestUtil.dateFormat.parse("2020-04-21T07:00:00"), true, "CAN");
         util.checkStatus(urlToTest, new String[] {"CAN"});
         util.checkTotalElements(urlToTest, 2);
+	}
+	
+	
+	//pedidos antigos
+	@Test
+	void test_pedido_by_canceled_and_old_start_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=CANCEL&startRow=0&pageRows=350&startCanceledDate=2019-01-05T07:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(46))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(46))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(0))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+		util.checkDateLimit(urlToTest, null, null, true, "CAN", true);
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2019-01-05T07:00:00"), null, true, "CAN", true);
+		util.checkStatus(urlToTest, new String[] {"CAN"});
+		util.checkTotalElements(urlToTest, 46);
+	}
+	
+	
+	@Test
+	void test_pedido_by_canceled_and_old_end_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=CANCEL&startRow=0&pageRows=350&finishCanceledDate=2019-01-07T11:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(0))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(0))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(0))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+        util.checkTotalElements(urlToTest, 0);
+	}
+	
+	@Test
+	void test_pedido_by_canceled_and_old_start_date_and_old_end_date() throws ParseException {
+		
+		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&status=CANCEL&startRow=0&pageRows=350&startCanceledDate=2019-01-05T07:00:00Z&finishCanceledDate=2019-01-07T11:00:00Z"; 
+		
+		get(urlToTest)
+		.then()
+		.assertThat()
+		.statusCode(200)
+		.body("totalRows", equalTo(1))
+		.body("totalOrdersNew", equalTo(0))
+		.body("totalOrdersApproved", equalTo(0))
+		.body("totalOrdersSent", equalTo(0))
+		.body("totalOrdersDelivered", equalTo(0))
+		.body("totalOrdersCanceled", equalTo(1))
+		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersPartiallyDelivered", equalTo(0))
+		.body("totalOrdersSentPartially", equalTo(0))
+		.body("totalOrdersPending", equalTo(0))
+		.body("totalOrdersRemovalAvailable", equalTo(0))
+		.body("totalOrdersRefusedPayment", equalTo(0));
+		
+		util.checkDateLimit(urlToTest, null, null, true, "CAN", true);
+		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2019-01-05T07:00:00"), RestAssuredTestUtil.dateFormat.parse("2019-01-07T11:00:00"), true, "CAN", true);
+		util.checkStatus(urlToTest, new String[] {"CAN"});
+		util.checkTotalElements(urlToTest, 1);
 	}
 
 }
