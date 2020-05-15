@@ -70,7 +70,7 @@ class ApiOrderGetV2RAT {
 	}
 	
 	@Test
-	void test_pedido_antigo_by_no_one() throws ParseException {
+	void test_pedido_by_no_filters() throws ParseException {
 		
 		String urlToTest = "http://localhost:8200/deprecated/api/compra/v2?storeQualifierId=33612&startRow=0&pageRows=350"; 
 		
@@ -78,21 +78,21 @@ class ApiOrderGetV2RAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(335))
+		.body("totalRows", equalTo(330))
 		.body("totalOrdersNew", equalTo(0))
-		.body("totalOrdersApproved", equalTo(3))
-		.body("totalOrdersSent", equalTo(34))
+		.body("totalOrdersApproved", equalTo(2))
+		.body("totalOrdersSent", equalTo(32))
 		.body("totalOrdersDelivered", equalTo(235))
-		.body("totalOrdersCanceled", equalTo(46))
+		.body("totalOrdersCanceled", equalTo(45))
 		.body("totalOrdersReturned", equalTo(0))
 		.body("totalOrdersPartiallyDelivered", equalTo(2))
 		.body("totalOrdersSentPartially", equalTo(1))
-		.body("totalOrdersPending", equalTo(14))
+		.body("totalOrdersPending", equalTo(13))
 		.body("totalOrdersRemovalAvailable", equalTo(0))
 		.body("totalOrdersRefusedPayment", equalTo(0));
 		
 		util.checkDateLimit(urlToTest, null, null);
-		util.checkTotalElements(urlToTest, 335);
+		util.checkTotalElements(urlToTest, 330);
 	}
 	
 }
