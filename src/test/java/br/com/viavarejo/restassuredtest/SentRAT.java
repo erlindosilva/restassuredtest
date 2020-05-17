@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
-@Disabled
+//@Disabled
 class SentRAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil("Amanda Grazielle Soares Giffoni", "Amanda", "07222133607"); 
@@ -27,10 +27,10 @@ class SentRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(31))
+		.body("totalRows", equalTo(30))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
-		.body("totalOrdersSent", equalTo(31))
+		.body("totalOrdersSent", equalTo(30))
 		.body("totalOrdersDelivered", equalTo(0))
 		.body("totalOrdersCanceled", equalTo(0))
 		.body("totalOrdersReturned", equalTo(0))
@@ -43,7 +43,7 @@ class SentRAT {
         
 		util.checkDateLimit(urlToTest, null, null, true, "ETR");
 		util.checkStatus(urlToTest, new String[] {"SHP"});
-		util.checkTotalElements(urlToTest, 31);
+		util.checkTotalElements(urlToTest, 30);
 	}
 	
 	
@@ -207,10 +207,10 @@ class SentRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(9))
+		.body("totalRows", equalTo(8))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
-		.body("totalOrdersSent", equalTo(9))
+		.body("totalOrdersSent", equalTo(8))
 		.body("totalOrdersDelivered", equalTo(0))
 		.body("totalOrdersCanceled", equalTo(0))
 		.body("totalOrdersReturned", equalTo(0))
@@ -223,7 +223,7 @@ class SentRAT {
 		util.checkDateLimit(urlToTest, null, null, true, "ETR");
 		//util.checkDateLimit(urlToTest, null, RestAssuredTestUtil.dateFormat.parse("2020-04-15T18:01:00"), true, "ETR");
         util.checkStatus(urlToTest, new String[] {"SHP"});
-        util.checkTotalElements(urlToTest, 9);
+        util.checkTotalElements(urlToTest, 8);
 	}
 	
 	
@@ -391,10 +391,10 @@ class SentRAT {
 		.then()
 		.assertThat()
 		.statusCode(200)
-		.body("totalRows", equalTo(33))
+		.body("totalRows", equalTo(32))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(0))
-		.body("totalOrdersSent", equalTo(33))
+		.body("totalOrdersSent", equalTo(32))
 		.body("totalOrdersDelivered", equalTo(0))
 		.body("totalOrdersCanceled", equalTo(0))
 		.body("totalOrdersReturned", equalTo(0))
@@ -407,7 +407,7 @@ class SentRAT {
 		util.checkDateLimit(urlToTest, null, null, true, "ETR", true);
 		util.checkDateLimit(urlToTest, RestAssuredTestUtil.dateFormat.parse("2019-01-05T07:00:00"), null, true, "ETR", true);
 		util.checkStatus(urlToTest, new String[] {"SHP"});
-		util.checkTotalElements(urlToTest, 33);
+		util.checkTotalElements(urlToTest, 32);
 	}
 	
 	

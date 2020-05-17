@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
-@Disabled
+//@Disabled
 class ApiOrderGetV2RAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil(); 
@@ -81,10 +81,10 @@ class ApiOrderGetV2RAT {
 		.body("totalRows", equalTo(330))
 		.body("totalOrdersNew", equalTo(0))
 		.body("totalOrdersApproved", equalTo(2))
-		.body("totalOrdersSent", equalTo(32))
+		.body("totalOrdersSent", equalTo(31))
 		.body("totalOrdersDelivered", equalTo(235))
 		.body("totalOrdersCanceled", equalTo(45))
-		.body("totalOrdersReturned", equalTo(0))
+		.body("totalOrdersReturned", equalTo(1))
 		.body("totalOrdersPartiallyDelivered", equalTo(2))
 		.body("totalOrdersSentPartially", equalTo(1))
 		.body("totalOrdersPending", equalTo(13))

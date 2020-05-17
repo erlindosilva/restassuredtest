@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
-@Disabled
+//@Disabled
 class DeliveredRAT {
 
 	RestAssuredTestUtil util = new RestAssuredTestUtil("Giovanna Padovam Mota", "Giovanna", "23755108879"); 
